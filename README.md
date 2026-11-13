@@ -278,5 +278,7 @@ Robolectric 仅测试期使用。
 
 完整条款见 [LICENSE](LICENSE)。如需商用授权，请联系作者。
 
+Copyright © 2026 DHJ999
+
 字体 [Rajdhani](https://fonts.google.com/specimen/Rajdhani) 来自 Google Fonts，
 遵循 SIL Open Font License 1.1。
