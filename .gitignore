@@ -1,0 +1,33 @@
+# ── 构建产物 ──
+build/
+app/build/
+.gradle/
+.kotlin/
+*.apk
+*.aab
+*.ap_
+*.dex
+*.class
+*.hprof
+
+# ── 本地环境 ──
+local.properties
+.idea/
+*.iml
+.DS_Store
+captures/
+.kotlin/
+
+# ── 内部工作记录（逆向过程与现场笔记，不入库）──
+日志.md
+需求追踪矩阵.md
+MIGRATION.md
+REFACTOR-1.5.0.md
+_archive/
+hab/
+
+# ── 附件：设计稿与实拍图（体积大，不入库）──
+仪表盘样式/
+
+# ── 运行日志 ──
+*.log

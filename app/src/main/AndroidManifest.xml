@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- 悬浮层输出：不遮挡模式和主界面退出后常驻都要它 -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <!-- 开机自启 -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <!-- 仪表盘后台常驻；Android 14 需要 specialUse 类型 -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+    <!-- 媒体会话注入探针（验证仪表右侧卡片数据源） -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
+
+    <!--
+        车身信号读取。这些是 android.car 的系统权限，必须在车机上通过
+        priv-app 权限白名单（或平台签名）授予；普通安装只会被拒绝。
+    -->
+    <uses-permission android:name="android.car.permission.CAR_SPEED" />
+    <uses-permission android:name="android.car.permission.CAR_POWERTRAIN" />
+    <uses-permission android:name="android.car.permission.CAR_ENGINE_DETAILED" />
+    <uses-permission android:name="android.car.permission.CAR_TIRES" />
+    <uses-permission android:name="android.car.permission.CAR_ENERGY" />
+    <uses-permission android:name="android.car.permission.CAR_EXTERIOR_ENVIRONMENT" />
+    <uses-permission android:name="android.car.permission.CAR_MILEAGE" />
+    <uses-permission android:name="android.car.permission.CAR_INFO" />
+
+    <application
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="false"
+        android:theme="@style/Theme.DeepSpace">
+
+        <!-- 车机才有 android.car；required=false 保证普通设备也能安装。 -->
+        <uses-library
+            android:name="android.car"
+            android:required="false" />
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:configChanges="orientation|screenSize|smallestScreenSize|keyboardHidden|uiMode|density"
+            android:launchMode="singleTask"
+            android:screenOrientation="sensorLandscape"
+            android:theme="@style/Theme.DeepSpace">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!--
+            副屏 Activity 的普通应用版本：由引擎用
+            ActivityOptions.setLaunchDisplayId() 直接投到仪表屏。
+            taskAffinity 为空 + singleTask，避免和主控制台共用任务栈。
+        -->
+        <activity
+            android:name=".ClusterDisplayActivity"
+            android:exported="false"
+            android:configChanges="orientation|screenSize|smallestScreenSize|keyboardHidden|uiMode|density"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTask"
+            android:resizeableActivity="true"
+            android:taskAffinity=""
+            android:theme="@style/Theme.ClusterDisplay" />
+
+        <service
+            android:name=".DashboardService"
+            android:exported="false"
+            android:foregroundServiceType="specialUse">
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="cluster_display_overlay" />
+        </service>
+
+        <!-- 媒体会话注入探针：验证仪表右侧可变卡片是否吃 MediaSession 数据。exported 便于 adb 启动。 -->
+        <service
+            android:name=".MediaProbeService"
+            android:exported="true"
+            android:foregroundServiceType="mediaPlayback" />
+
+        <!-- VDBus 探针：直连 desaysv 车辆服务取 MCU 数据（转速/水温/车速）。 -->
+        <service
+            android:name=".VdBusProbeService"
+            android:exported="true" />
+
+        <receiver
+            android:name=".BootReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>

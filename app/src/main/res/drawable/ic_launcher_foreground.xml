@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 图标主体：270° 青绿弧，缺口朝下，和主界面同构。 -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <path
+        android:pathData="M54,26 A28,28 0 1,1 26,54"
+        android:strokeColor="#00E8C6"
+        android:strokeWidth="5"
+        android:strokeLineCap="round" />
+
+    <path
+        android:pathData="M44,62 L64,62"
+        android:strokeColor="#00E8C6"
+        android:strokeWidth="4"
+        android:strokeLineCap="round"
+        android:strokeAlpha="0.55" />
+</vector>

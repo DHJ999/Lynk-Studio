@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.DeepSpace" parent="@android:style/Theme.Material.NoActionBar">
+        <item name="android:windowBackground">@color/space_bg</item>
+        <item name="android:statusBarColor">@color/space_bg</item>
+        <item name="android:navigationBarColor">@color/space_bg</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowActivityTransitions">false</item>
+        <item name="android:colorAccent">#FF00E8C6</item>
+    </style>
+
+    <!--
+        副屏 Activity 的窗口。全屏模式靠 ClusterView 自己画不透明底图；
+        不遮挡模式必须让窗口真正透明，原厂仪表才能从下面透出来。
+    -->
+    <style name="Theme.ClusterDisplay" parent="@android:style/Theme.Material.NoActionBar">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowActionModeOverlay">true</item>
+        <item name="android:windowDisablePreview">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:colorAccent">#FF00E8C6</item>
+    </style>
+</resources>

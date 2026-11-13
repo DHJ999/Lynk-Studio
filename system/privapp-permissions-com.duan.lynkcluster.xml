@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    系统级安装用白名单。
+
+    用法（车机需 root / 可 remount system）：
+      1. adb root && adb remount
+      2. adb push app-release.apk /system/priv-app/LynkCluster/LynkCluster.apk
+      3. adb push privapp-permissions-com.duan.lynkcluster.xml \
+           /system/etc/permissions/privapp-permissions-com.duan.lynkcluster.xml
+      4. adb reboot
+
+    如果车机使用平台签名校验，还需要用厂商 platform key 重新签名 APK；
+    否则系统会拒绝这些 signature|privileged 权限。
+-->
+<permissions>
+    <privapp-permissions package="com.duan.lynkcluster">
+        <permission name="android.car.permission.CAR_SPEED" />
+        <permission name="android.car.permission.CAR_POWERTRAIN" />
+        <permission name="android.car.permission.CAR_ENGINE_DETAILED" />
+        <permission name="android.car.permission.CAR_TIRES" />
+        <permission name="android.car.permission.CAR_ENERGY" />
+        <permission name="android.car.permission.CAR_EXTERIOR_ENVIRONMENT" />
+        <permission name="android.car.permission.CAR_MILEAGE" />
+        <permission name="android.car.permission.CAR_INFO" />
+    </privapp-permissions>
+</permissions>
